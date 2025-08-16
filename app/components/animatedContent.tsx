@@ -2,7 +2,7 @@
 
 import { useFeedbackStore, useErrorStore, useWordStore } from '@/store/store'
 import { FeedbackData } from '@/types'
-import React, { useEffect, useState } from 'react'
+
 
 const AnimatedContent = () => {
   const word = useWordStore(state => state.word)

@@ -13,6 +13,7 @@ export const feedbackSchema = z.object({
   summary: z.string(),
 });
 
+
 export const generateDefiniiton = async (word)=>{
 
   const res = await fetch('/api/create-feedback', {
