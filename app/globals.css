@@ -38,7 +38,7 @@
   }
 
   .absolute-center{
-    @apply absolute left-1/2 -translate-x-1/2 bottom-4
+    @apply fixed left-1/2 -translate-x-1/2 bottom-4
   }
 }
 

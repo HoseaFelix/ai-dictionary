@@ -5,7 +5,7 @@ import { google } from '@ai-sdk/google';
 
 export async function POST(req: NextRequest) {
   try {
-    const { captions } = await req.json();
+    const { word } = await req.json();
 
     const {
       object: { overview, keyPoints, bestPractices, warnings, summary },
@@ -15,24 +15,25 @@ export async function POST(req: NextRequest) {
       }),
       schema: feedbackSchema,
       prompt: `
-        You are an expert at analyzing spoken content from YouTube videos. I will give you the full transcript (captions) of a video. 
+        You are an expert lexicographer. I will give you a single English word.
 
-        From it, extract the following insights in structured JSON format based on this schema:
+        From it, extract the following structured insights in JSON format based on this schema:
 
-        - overview: A brief description (2–3 sentences) of what the video is about.
-        - keyPoints: An array of important insights or takeaways. Each point should be short and clear.
-        - bestPractices: An array of practical advice or suggestions mentioned in the video. Each should be phrased as a helpful instruction.
-        - warnings: An array of warnings, misconceptions, or pitfalls that the speaker highlights (if any).
-        - summary: A concise conclusion or wrap-up of the video.
+        - overview: A short description of the word, including its part of speech and usage context.
+        - keyPoints: An array of key details such as part of speech, etymology, word origin, or typical usage domain.
+        - bestPractices: An array of correct usage tips or grammatical notes. Each should be phrased as a helpful instruction.
+        - warnings: An array of common usage mistakes, misinterpretations, or pronunciation errors (if any).
+        - summary: A concise definition of the word (1–2 sentences), suitable for learners.
 
-        Only extract what is relevant based on the transcript. If a section (like warnings) is not present in the video, return it as an empty array.
+        If any section does not apply to the word, return it as an empty array.
 
-        Now analyze the following video transcript:
+        Now analyze the following word:
 
         """
-        ${captions}
+        ${word}
         """
       `,
+
     });
 
     return NextResponse.json({

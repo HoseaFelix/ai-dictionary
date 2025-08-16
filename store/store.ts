@@ -43,3 +43,13 @@ export const useErrorStore = create<errorState>((set)=>({
     clearError: () => set({error: ''})
 
 }))
+
+export interface wordStore {
+  word: string,
+  setWord: (word:string)=> void
+}
+
+export const useWordStore = create<wordStore> ((set)=>({
+  word: '',
+  setWord: (word) => set({word: word})
+}))
